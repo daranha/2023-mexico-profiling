@@ -26,13 +26,13 @@ def integrate_f(f, a, b, n):
         dx = (b - a) / n
         x = a + (i + 0.5) * dx
         y = f(x)
-        s = s + [y * dx]
+        s.append(y * dx)
     return sum(s)
 
 
 def measure_integration_errors(f, F, n_max, a, b):
     errors = []
-    for n in range(1, n_max, 10):
+    for n in range(1, n_max, 25):
         F_analytical = F(b) - F(a)
         F_numerical = integrate_f(f, a, b, n)
         error = abs(F_analytical - F_numerical)
@@ -48,7 +48,7 @@ def plot_results(n_max, errors):
     ax.set_xlabel("Number of bins")
     ax.set_ylabel("Absolute error")
     ax.set_yscale("log")
-    ax.plot(range(1, n_max, 10), errors)
+    ax.plot(range(1, n_max, 25), errors)
     fig.savefig("numerical_integration_error.pdf")
 
 
